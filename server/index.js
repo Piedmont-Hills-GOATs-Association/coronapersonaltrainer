@@ -22,11 +22,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const checkToken = async (req, res) => {
   if (req.header('Token')) {
     if (req.header('Token') === 'API-test') {
-      return true;
+      return {
+        email: req.body.email
+      };
     } else {
       try {
-        await admin.auth().verifyIdToken(req.header('Token'));
-        return true;
+        const decodedToken = await admin.auth().verifyIdToken(req.header('Token'));
+        return await admin.auth().getUser(decodedToken.uid);
       } catch (e) {
         console.log(e);
         return false;
@@ -37,33 +39,60 @@ const checkToken = async (req, res) => {
   }
 };
 
-app.post('/createUser', async (req, res) => {
-  if (await checkToken(req, res)) {
-    if (req.body.username && req.body.email) {
-      try {
-        await Users.create({
-          email: req.body.email,
-          username: req.body.username
-        });
-        console.log(`Successful user created: ${req.body.email} - @${req.body.username}`)
+const updateUser = async (email, req) => {
+  const user = {};
+  if (req.body.username) user.username = req.body.username;
+  try {
+    await Users.updateOne({
+      email
+    }, user);
+    console.log(`Successful user update: ${req.body.email}`);
+    console.log(user);
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+app.route('/user')
+  .post(async (req, res) => {
+    const user = await checkToken(req, res);
+    if (user) {
+      if (req.body.username) {
+        try {
+          await Users.create({
+            email: user.email,
+            username: req.body.username
+          });
+          console.log(`Successful user created: ${req.body.email} - @${req.body.username}`);
+          res.status(200).end();
+        } catch (e) {
+          console.log(e);
+          res.status(500).send(e);
+        }
+      } else {
+        console.log(`Not enough parameters - Token: ${req.header('Token')}`)
+        res.status(500).send(`Not enough parameters - Token: ${req.header('Token')}`);
+      }
+    } else {
+      console.log(`Invalid API Token: ${req.header('Token')}`)
+      res.status(500).send(`Invalid API Token: ${req.header('Token')}`);
+    }
+  })
+  .put(async (req, res) => {
+    const user = await checkToken(req, res);
+    if (user) {
+      if (await updateUser(user.email, req)) {
         res.status(200).end();
-      } catch (e) {
-        console.log(e);
+      } else {
         res.status(500).send(e);
       }
     } else {
-      console.log(`Not enough parameters - Token: ${req.header('Token')}`)
-      res.status(500).send(`Not enough parameters - Token: ${req.header('Token')}`);
+      console.log(`Invalid API Token: ${req.header('Token')}`)
+      res.status(500).send(`Invalid API Token: ${req.header('Token')}`);
     }
-  } else {
-    console.log(`Invalid API Token: ${req.header('Token')}`)
-    res.status(500).send(`Invalid API Token: ${req.header('Token')}`);
-  }
-});
-
-app.put('/editUser', async (req, res) => {
-  checkToken
-});
+  });
 
 mongoose.connection.once('open', function() {
   console.log('Successful connection to MongoDB Atlas database.');
