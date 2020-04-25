@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const admin = require('firebase-admin');
 const { Users } = require('./models.js')
 
-const PORT = 3000;
+const PORT = 3030;
 
 mongoose.connect('mongodb+srv://full_data_access:mw9coLioaTMF9PL3@cpt-cluster-1-phfvm.gcp.mongodb.net/CPT-Data?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
@@ -18,6 +18,12 @@ admin.initializeApp({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Token");
+  next();
+});
 
 const checkToken = async (req, res) => {
   if (req.header('Token')) {
