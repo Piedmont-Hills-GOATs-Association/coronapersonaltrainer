@@ -1,7 +1,7 @@
 import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
-import ClientNavbar from './ClientNavbar';
+import BrowseNavbar from './BrowseNavbar';
 import firebase from './firebase';
 
 class Home extends React.Component {
@@ -23,7 +23,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <ClientNavbar user={this.state.user}/>
+        <BrowseNavbar user={this.state.user}/>
         <Jumbotron>
           <h1>Welcome!</h1>
           <p>Welcome to the Corona Personal Trainer, a program that can help keep you fit while you stay indoors during the COVID-19 shelter-in-place orders.</p>

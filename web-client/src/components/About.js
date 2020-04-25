@@ -2,7 +2,7 @@ import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import ClientNavbar from './ClientNavbar';
+import BrowseNavbar from './BrowseNavbar';
 import firebase from './firebase';
 import holder from "../holder.svg";
 import './About.css';
@@ -26,7 +26,7 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <ClientNavbar user={this.state.user}/>
+        <BrowseNavbar user={this.state.user}/>
         <div className="container">
           <h1>Meet the people behind the program:</h1>
           <Row>

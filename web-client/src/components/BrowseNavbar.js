@@ -5,7 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import firebase from './firebase';
 
-class ClientNavbar extends React.Component {
+class BrowseNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +25,7 @@ class ClientNavbar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg">
           <Navbar.Brand href="/">Corona PT Web Client</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -52,4 +52,4 @@ class ClientNavbar extends React.Component {
 }
 
 
-export default ClientNavbar;
+export default BrowseNavbar;
