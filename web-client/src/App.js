@@ -5,6 +5,7 @@ import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import Downloads from './components/Downloads';
 import ErrorPage from './components/Error';
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
             <Route path="/" component={Home} exact/>
             <Route path="/about" component={About} exact/>
             <Route path="/dashboard" component={Dashboard} exact />
+            <Route path="/downloads" component={Downloads} exact />
             <Route path="/login" component={Login} exact/>
             <Route path="/register" component={Register} exact/>
             <Route component={ErrorPage}/>

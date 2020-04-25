@@ -26,12 +26,13 @@ class BrowseNavbar extends React.Component {
     return (
       <div>
         <Navbar bg="dark" variant="dark" expand="lg">
-          <Navbar.Brand href="/">Corona PT Web Client</Navbar.Brand>
+          <Navbar.Brand href="/">Corona Personal Trainer</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/about">About</Nav.Link>
+              <Nav.Link href="/downloads">Downloads</Nav.Link>
             </Nav>
             {
               this.props.user ? (

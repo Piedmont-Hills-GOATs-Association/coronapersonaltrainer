@@ -44,7 +44,7 @@ class Login extends React.Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
-          redirect: (<Redirect to="/" />)
+          redirect: (<Redirect to="/dashboard" />)
         });
       }
     });

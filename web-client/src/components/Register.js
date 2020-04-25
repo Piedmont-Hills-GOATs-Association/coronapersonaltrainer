@@ -9,6 +9,8 @@ import firebase from './firebase';
 import './Register.css';
 
 class Register extends React.Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +21,8 @@ class Register extends React.Component {
       formEmail: '',
       formPassword: '',
       alert: (<div></div>),
-      redirect: (<div></div>)
+      redirect: (<div></div>),
+      finishedRegister: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,15 +37,49 @@ class Register extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    const changeAlert = message => {
-      this.setState({
-        alert: (<Alert variant="danger">{message}</Alert>)
-      });
-    };
     if (e.currentTarget.checkValidity()) {
-      firebase.auth().createUserWithEmailAndPassword(this.state.formEmail, this.state.formPassword).catch(function (error) {
+      firebase.auth().createUserWithEmailAndPassword(this.state.formEmail, this.state.formPassword).then(() => {
+        firebase.auth().currentUser.getIdToken(true).then(idToken => {
+          fetch('http://localhost:3030/user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Token': idToken
+            },
+            body: JSON.stringify({
+              email: this.state.formEmail,
+              username: this.state.formUsername
+            })
+          })
+            .then(response => response.text())
+            .then(
+              (result) => {
+                if (this._isMounted) {
+                  this.setState({
+                    redirect: (<Redirect to="/dashboard" />)
+                  });
+                }
+              },
+              (error) => {
+                console.log(error)
+                if (this._isMounted) {
+                  this.setState({
+                    alert: (<Alert variant="danger">Something went wrong. Please try again.</Alert>)
+                  });
+                }
+              }
+            );
+        }).catch(function(error) {
+          console.log(error)
+          this.setState({
+            alert: (<Alert variant="danger">Something went wrong. Please try again.</Alert>)
+          });
+        });
+      }).catch(error => {
         console.log(error.code);
-        changeAlert(error.message);
+        this.setState({
+          alert: (<Alert variant="danger">{error.message}</Alert>)
+        });
       });
     }
     this.setState({
@@ -51,13 +88,19 @@ class Register extends React.Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
-          redirect: (<Redirect to="/" />)
+          redirect: (<Redirect to="/dashboard" />)
         });
       }
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

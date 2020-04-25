@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import BrowseNavbar from './BrowseNavbar';
 import firebase from './firebase';
-import holder from "../holder.svg";
+import holder from "../holder_profile.svg";
 import './About.css';
 
 class About extends React.Component {
