@@ -30,7 +30,7 @@ public class homePage extends JComponent{
     }
 
     public void response(int g, int h){
-        if(g > x && g < x + side1 && h > y && h < y + side2){
+        if(g > x && g < x + loginSide1 && h > y && h < y + loginSide2){
             System.out.println("hi");
         }
     }
