@@ -35,9 +35,9 @@ class BrowseNavbar extends React.Component {
               <Nav.Link href="/downloads">Downloads</Nav.Link>
             </Nav>
             {
-              this.props.user ? (
+              this.props.fbuser ? (
                 <div>
-                  <NavDropdown title={this.props.user.email} id="basic-nav-dropdown">
+                  <NavDropdown title={this.props.fbuser.email} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={this.logoff}>Log Off</NavDropdown.Item>
@@ -47,6 +47,7 @@ class BrowseNavbar extends React.Component {
             }
           </Navbar.Collapse>
         </Navbar>
+        <br />
       </div>
     )
   }

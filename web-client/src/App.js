@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Downloads from './components/Downloads';
+import Account from './components/Account';
 import ErrorPage from './components/Error';
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ class App extends React.Component {
             <Route path="/downloads" component={Downloads} exact />
             <Route path="/login" component={Login} exact/>
             <Route path="/register" component={Register} exact/>
+            <Route path="/account" component={Account} exact/>
             <Route component={ErrorPage}/>
           </Switch>
         </div>

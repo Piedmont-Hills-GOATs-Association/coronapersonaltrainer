@@ -8,14 +8,14 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      fbuser: null
     };
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
+    firebase.auth().onAuthStateChanged((fbuser) => {
+      if (fbuser) {
+        this.setState({ fbuser });
       }
     });
   }
@@ -23,7 +23,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <BrowseNavbar user={this.state.user}/>
+        <BrowseNavbar fbuser={this.state.fbuser}/>
         <Jumbotron>
           <h1>Welcome!</h1>
           <p>Welcome to the Corona Personal Trainer, a program that can help keep you fit while you stay indoors during the COVID-19 shelter-in-place orders.</p>

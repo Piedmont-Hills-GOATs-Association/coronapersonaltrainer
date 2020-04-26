@@ -8,14 +8,14 @@ class Downloads extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      fbuser: null
     };
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
+    firebase.auth().onAuthStateChanged((fbuser) => {
+      if (fbuser) {
+        this.setState({ fbuser });
       }
     });
   }
@@ -23,7 +23,7 @@ class Downloads extends React.Component {
   render() {
     return (
       <div>
-        <BrowseNavbar user={this.state.user}/>
+        <BrowseNavbar fbuser={this.state.fbuser}/>
         <Jumbotron>
           <h1>Downloads</h1>
           <p>

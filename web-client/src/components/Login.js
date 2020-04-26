@@ -29,20 +29,17 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    const changeAlert = message => {
-      this.setState({
-        alert: (<Alert variant="danger">{message}</Alert>)
-      });
-    };
-    firebase.auth().signInWithEmailAndPassword(this.state.formEmail, this.state.formPassword).catch(function (error) {
+    firebase.auth().signInWithEmailAndPassword(this.state.formEmail, this.state.formPassword).catch(error => {
       console.log(error.code);
-      changeAlert(error.message);
+      this.setState({
+        alert: (<Alert variant="danger">{error.message}</Alert>)
+      });
     });
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+    firebase.auth().onAuthStateChanged((fbuser) => {
+      if (fbuser) {
         this.setState({
           redirect: (<Redirect to="/dashboard" />)
         });
