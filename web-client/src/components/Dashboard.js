@@ -14,17 +14,36 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       redirect: (<div></div>),
-      user: {}
+      fbuser: {},
+      mdbuser: {}
     };
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
-      } else {
-        this.setState({
-          redirect: (<Redirect to="/" />)
+    firebase.auth().onAuthStateChanged((fbuser) => {
+      if (fbuser) {
+        this.setState({ fbuser });
+        firebase.auth().currentUser.getIdToken(true).then(idToken => {
+          fetch('http://localhost:3030/user?action=data', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Token': idToken
+            }
+          })
+            .then(response => response.json())
+            .then(
+              (result) => {
+                this.setState({
+                  mdbuser: result
+                });
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+        }).catch(error => {
+          console.log(error);
         });
       }
     });

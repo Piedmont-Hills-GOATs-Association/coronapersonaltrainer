@@ -90,8 +90,8 @@ class Register extends React.Component {
   componentDidMount() {
     this._isMounted = true;
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+    firebase.auth().onAuthStateChanged((fbuser) => {
+      if (fbuser) {
         this.setState({
           redirect: (<Redirect to="/dashboard" />)
         });

@@ -16,7 +16,7 @@ class Dashboard extends React.Component {
     this.state = {
       alert: (<div></div>),
       redirect: (<div></div>),
-      user: {},
+      fbuser: {},
       formHeight: '',
       formWeight: '',
       show: false
@@ -81,9 +81,9 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
+    firebase.auth().onAuthStateChanged((fbuser) => {
+      if (fbuser) {
+        this.setState({ fbuser });
       } else {
         this.setState({
           redirect: (<Redirect to="/" />)
@@ -117,7 +117,7 @@ class Dashboard extends React.Component {
           <Form onSubmit={this.handleSave}>
             <Form.Group controlId="formEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control readOnly defaultValue={this.state.user.email} />
+              <Form.Control readOnly defaultValue={this.state.fbuser.email} />
             </Form.Group>
             <Form.Group controlId="formUsername">
               <Form.Label>Username</Form.Label>
