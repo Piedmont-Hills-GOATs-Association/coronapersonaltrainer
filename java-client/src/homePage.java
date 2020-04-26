@@ -39,9 +39,9 @@ public class homePage extends JComponent{
 
         g2.setPaint(Color.black);
         g2.setFont(CenturyGothic);
-        g2.drawString("Login", x + loginSide1 / 4, y + loginSide2 * 3 / 4);
-
-        g2.setFont(CenturyGothic);
+        g2.drawString("Login", x + loginSide1 / 4 + 30, y + loginSide2 * 3 / 4 - 5);
+        Font title = new Font("Helvetica", 0, 60);
+        g2.setFont(title);
         g2.drawString("Welcome To Your", FrameWidth / 4, FrameHeight / 4);
         g2.drawString("COVID-19 Personal Trainer", FrameWidth / 4 - 100, FrameHeight / 2);
     }
