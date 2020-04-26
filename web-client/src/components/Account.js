@@ -17,6 +17,7 @@ class Dashboard extends React.Component {
       alert: (<div></div>),
       redirect: (<div></div>),
       fbuser: {},
+      mdbuser: {},
       formHeight: '',
       formWeight: '',
       show: false
@@ -84,6 +85,28 @@ class Dashboard extends React.Component {
     firebase.auth().onAuthStateChanged((fbuser) => {
       if (fbuser) {
         this.setState({ fbuser });
+        firebase.auth().currentUser.getIdToken(true).then(idToken => {
+          fetch('http://localhost:3030/user?action=data', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Token': idToken
+            }
+          })
+            .then(response => response.json())
+            .then(
+              (result) => {
+                this.setState({
+                  mdbuser: result
+                });
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+        }).catch(error => {
+          console.log(error);
+        });
       } else {
         this.setState({
           redirect: (<Redirect to="/" />)
@@ -96,7 +119,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         {this.state.redirect}
-        <ClientNavbar />
+        <ClientNavbar username={this.state.mdbuser.username} />
         <Modal show={this.state.show} onHide={this.setShow}>
           <Modal.Header closeButton>
             <Modal.Title>Success!</Modal.Title>
@@ -121,15 +144,15 @@ class Dashboard extends React.Component {
             </Form.Group>
             <Form.Group controlId="formUsername">
               <Form.Label>Username</Form.Label>
-              <Form.Control readOnly defaultValue="bleh" />
+              <Form.Control readOnly defaultValue={this.state.mdbuser.username} />
             </Form.Group>
             <Form.Group controlId="formHeight">
               <Form.Label>Height (in inches)</Form.Label>
-              <Form.Control onChange={this.handleChange} placeholder="Enter height in inches" />
+              <Form.Control onChange={this.handleChange} placeholder="Enter height in inches" defaultValue={this.state.mdbuser.height} />
             </Form.Group>
             <Form.Group controlId="formWeight">
               <Form.Label>Weight (in pounds)</Form.Label>
-              <Form.Control onChange={this.handleChange} placeholder="Enter weight in pounds" />
+              <Form.Control onChange={this.handleChange} placeholder="Enter weight in pounds" defaultValue={this.state.mdbuser.weight} />
             </Form.Group>
             <Button variant="primary" type="submit">Save</Button>
           </Form>
