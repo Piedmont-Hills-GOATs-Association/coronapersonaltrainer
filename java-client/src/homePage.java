@@ -1,7 +1,8 @@
-import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.io.File;
 
 public class homePage extends JComponent{
     static int FrameWidth = 1000;
@@ -10,10 +11,20 @@ public class homePage extends JComponent{
     int loginSide2 = 60;
     int x = FrameWidth / 2 - loginSide1 / 2;
     int y = FrameHeight * 3 / 4;
+    Font CenturyGothic;
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        try {
+            GraphicsEnvironment ge =
+            GraphicsEnvironment.getLocalGraphicsEnvironment();
+            CenturyGothic = Font.createFont(Font.TRUETYPE_FONT, new File("Century_Gothic_400.ttf"));
+            ge.registerFont(CenturyGothic);
+        } catch (IOException|FontFormatException e) {
+            //Handle exception
+        }
 
         g2.setPaint(Color.LIGHT_GRAY);
         Rectangle background = new Rectangle(0, 0, FrameWidth, FrameHeight);
@@ -27,8 +38,7 @@ public class homePage extends JComponent{
         g2.fill(rect);
 
         g2.setPaint(Color.black);
-        Font myFont1 = new Font("Dialog", Font.PLAIN, 40);
-        g2.setFont(myFont1);
+        g2.setFont(CenturyGothic);
         g2.drawString("Login", x + loginSide1 / 4, y + loginSide2 * 3 / 4);
 
         Font myFont2 = new Font("Dialog", Font.PLAIN, 60);
