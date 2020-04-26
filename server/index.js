@@ -22,15 +22,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Token");
+  res.header("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS");
   next();
 });
 
 const checkToken = async (req, res) => {
   if (req.header('Token')) {
     if (req.header('Token') === 'API-test') {
-      return {
-        email: req.body.email
-      };
+      if (req.body.email) {
+        return {
+          email: req.body.email
+        };
+      } else {
+        return {
+          email: req.query.email
+        };
+      }
     } else {
       try {
         const decodedToken = await admin.auth().verifyIdToken(req.header('Token'));
@@ -48,6 +55,8 @@ const checkToken = async (req, res) => {
 const updateUser = async (email, req) => {
   const user = {};
   if (req.body.username) user.username = req.body.username;
+  if (req.body.height) user.height = req.body.height;
+  if (req.body.weight) user.weight = req.body.weight;
   try {
     await Users.updateOne({
       email
@@ -62,7 +71,33 @@ const updateUser = async (email, req) => {
 };
 
 app.route('/user')
-  .post(async (req, res) => {
+  .get(async (req, res) => {
+    const user = await checkToken(req, res);
+    if (user) {
+      if (req.query.action) {
+        switch (req.query.action) {
+          case 'data':
+            const mdbUser = await Users.findOne({
+              email: user.email
+            });
+            console.log(mdbUser)
+            console.log(`Found user data: ${mdbUser}`);
+            res.status(200).json(mdbUser);
+            break;
+          default:
+            console.log(`Action ${req.query.action} does not exist - Email: ${user.email}`)
+            res.status(500).send(`Action ${req.query.action} does not exist - Email: ${user.email}`);
+            break;
+        }
+      } else {
+        console.log(`No action parameter - Email: ${user.email}`)
+        res.status(500).send(`No action parameter - Email: ${user.email}`);
+      }
+    } else {
+      console.log(`Invalid API Token: ${req.header('Token')}`)
+      res.status(500).send(`Invalid API Token: ${req.header('Token')}`);
+    }
+  }).post(async (req, res) => {
     const user = await checkToken(req, res);
     if (user) {
       if (req.body.username) {
@@ -78,15 +113,14 @@ app.route('/user')
           res.status(500).send(e);
         }
       } else {
-        console.log(`Not enough parameters - Token: ${req.header('Token')}`)
-        res.status(500).send(`Not enough parameters - Token: ${req.header('Token')}`);
+        console.log(`Not enough parameters - Email: ${user.email}`)
+        res.status(500).send(`Not enough parameters - Email: ${user.email}`);
       }
     } else {
       console.log(`Invalid API Token: ${req.header('Token')}`)
       res.status(500).send(`Invalid API Token: ${req.header('Token')}`);
     }
-  })
-  .put(async (req, res) => {
+  }).put(async (req, res) => {
     const user = await checkToken(req, res);
     if (user) {
       if (await updateUser(user.email, req)) {
