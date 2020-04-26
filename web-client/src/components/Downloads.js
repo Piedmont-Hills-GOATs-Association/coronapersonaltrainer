@@ -26,9 +26,9 @@ class Downloads extends React.Component {
         <BrowseNavbar fbuser={this.state.fbuser}/>
         <Jumbotron>
           <h1>Downloads</h1>
+          <p>Download the java client, where you can login and find out your BMI and change your account settings.</p>
           <p>
-            <Button variant="success" href="#">Java Client</Button>{' '}
-            <Button variant="warning" href="#">iOS App</Button>
+            <Button variant="success" href="#">Java Client</Button>
           </p>
         </Jumbotron>
       </div>

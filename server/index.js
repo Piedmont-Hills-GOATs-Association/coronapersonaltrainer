@@ -5,7 +5,7 @@ const multer = require('multer');
 const gridfs = require('gridfs-stream');
 const fs = require('fs');
 const admin = require('firebase-admin');
-const { Users } = require('./models.js');
+const { User, File } = require('./models.js');
 
 const PORT = 3030;
 
@@ -68,11 +68,10 @@ mongoose.connection.once('open', function() {
     if (req.body.weight) user.weight = req.body.weight;
     if (req.videos) user.videos = req.videos;
     try {
-      await Users.updateOne({
+      await User.updateOne({
         email
       }, user);
       console.log(`Successful user update: ${email}`);
-      console.log(user);
       return true;
     } catch (e) {
       console.log(e);
@@ -87,7 +86,7 @@ mongoose.connection.once('open', function() {
         if (req.query.action) {
           switch (req.query.action) {
             case 'data':
-              const mdbuser = await Users.findOne({
+              const mdbuser = await User.findOne({
                 email: fbuser.email
               });
               console.log(mdbuser)
@@ -112,7 +111,7 @@ mongoose.connection.once('open', function() {
       if (fbuser) {
         if (req.body.username) {
           try {
-            await Users.create({
+            await User.create({
               email: fbuser.email,
               username: req.body.username,
               height: '',
@@ -147,53 +146,105 @@ mongoose.connection.once('open', function() {
       }
     });
 
-  app.post('/upload', async (req, res) => {
-      multer({
-          storage: multer.diskStorage({
-            destination: './tmp'
-          })
-      }).any()(req, res, async (err) => {
-        const fbuser = await checkToken(req, res);
-        if (fbuser) {
-          if (err) {
-            console.log(err);
-            res.status(500).send(`Error has occurred - Email: ${fbuser.email}`);
-          } else {
-            const mdbuser = await Users.findOne({
-              email: fbuser.email
-            });
-            const file = req.files[0];
-            let filename = `${req.body.videoName} (${mdbuser.username})`;
-            let uploadInfo = await updateUser(fbuser.email, {
-              body: {},
-              videos: mdbuser.videos.concat({
-                bmi: Math.floor(703 * mdbuser.weight / Math.pow(mdbuser.height, 2)),
-                intensity: req.body.intensity,
-                description: req.body.instructions,
-                timestamp: Date.now(),
-                filename
-              })
-            });
-            if (uploadInfo) {
-              const writestream = gfs.createWriteStream({ filename });
-              fs.createReadStream(file.path).pipe(writestream);
-              writestream.on('close', () => {
-                fs.unlink(file.path, () => {
-                  res.status(200).send(true);
-                });
-              });
-            } else {
+  app.route('/upload')
+    .post(async (req, res) => {
+        multer({
+            storage: multer.diskStorage({
+              destination: './tmp'
+            })
+        }).any()(req, res, async (err) => {
+          const fbuser = await checkToken(req, res);
+          if (fbuser) {
+            if (err) {
               console.log(err);
               res.status(500).send(`Error has occurred - Email: ${fbuser.email}`);
+            } else {
+              const mdbuser = await User.findOne({
+                email: fbuser.email
+              });
+              const file = req.files[0];
+              let filename = `${req.body.videoName} (${mdbuser.username})`;
+              let uploadInfo = await updateUser(fbuser.email, {
+                body: {},
+                videos: mdbuser.videos.concat({
+                  bmi: Math.floor(703 * mdbuser.weight / Math.pow(mdbuser.height, 2)),
+                  intensity: req.body.intensity,
+                  description: req.body.instructions,
+                  timestamp: Date.now(),
+                  filename
+                })
+              });
+              if (uploadInfo) {
+                const writestream = gfs.createWriteStream({ filename });
+                fs.createReadStream(file.path).pipe(writestream);
+                writestream.on('close', () => {
+                  fs.unlink(file.path, () => {
+                    res.status(200).send(true);
+                  });
+                });
+              } else {
+                console.log(err);
+                res.status(500).send(`Error has occurred - Email: ${fbuser.email}`);
+              }
             }
+        } else {
+          console.log(`Invalid API Token: ${req.header('Token')}`)
+          res.status(500).send(`Invalid API Token: ${req.header('Token')}`);
+        }
+      });
+    }).get(async (req, res) => {
+      const fbuser = await checkToken(req, res);
+      if (fbuser) {
+        if (req.query.action) {
+          switch (req.query.action) {
+            case 'video':
+              if (req.query.v) {
+                gfs.exist({ filename: req.query.v }, function (err, file) {
+                  if (err || !file) {
+                    res.status(500).send('File Not Found');
+                  } else {
+                    const readstream = gfs.createReadStream({ filename: req.query.v });
+                    readstream.pipe(res);
+                  }
+                });
+              } else {
+                console.log(`No video parameter - Email: ${fbuser.email}`)
+                res.status(500).send(`No video parameter - Email: ${fbuser.email}`);
+              }
+              break;
+            case 'meta':
+              if (req.query.v) {
+                const vuser = req.query.v.split('(')[1].split(')')[0];
+                const usermeta = await User.findOne({
+                  username: vuser
+                });
+                const vidList = usermeta.videos;
+                const vidMeta = vidList.filter(x => x.filename === req.query.v)[0];
+                res.status(200).send(vidMeta);
+              } else {
+                console.log(`No video parameter - Email: ${fbuser.email}`)
+                res.status(500).send(`No video parameter - Email: ${fbuser.email}`);
+              }
+              break;
+            case 'list':
+              const fullList = await File.find();
+              const vidList = fullList.map(x => x.filename);
+              res.status(200).send(vidList);
+              break;
+            default:
+              console.log(`Action ${req.query.action} does not exist - Email: ${fbuser.email}`)
+              res.status(500).send(`Action ${req.query.action} does not exist - Email: ${fbuser.email}`);
+              break;
           }
+        } else {
+          console.log(`No action parameter - Email: ${fbuser.email}`)
+          res.status(500).send(`No action parameter - Email: ${fbuser.email}`);
+        }
       } else {
         console.log(`Invalid API Token: ${req.header('Token')}`)
         res.status(500).send(`Invalid API Token: ${req.header('Token')}`);
       }
-    });
-  });
-
+    })
 
   app.listen(PORT, function () {
       console.log(`Server-side listening on port ${PORT}.`);

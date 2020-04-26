@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Users = mongoose.model('Users', new mongoose.Schema({
+const User = mongoose.model('User', new mongoose.Schema({
   username: String,
   email: String,
   height: String,
@@ -8,4 +8,15 @@ const Users = mongoose.model('Users', new mongoose.Schema({
   videos: mongoose.Mixed
 }));
 
-module.exports = { Users }
+const File = mongoose.model('Fs.File', new mongoose.Schema({
+  filename: String,
+  contentType: String,
+  length: Number,
+  chunkSize: Number,
+  uploadDate: Date,
+  aliases: mongoose.Mixed,
+  metadata: mongoose.Mixed,
+  md5: String
+}));
+
+module.exports = { User, File }

@@ -1,11 +1,10 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import firebase from './firebase';
 
-class BrowseNavbar extends React.Component {
+class ClientNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +30,7 @@ class BrowseNavbar extends React.Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              <Nav.Link href="/#">Browse</Nav.Link>
+              <Nav.Link href="/browse">Browse</Nav.Link>
               <Nav.Link href="/create">Create</Nav.Link>
               <Nav.Link href="/account">Account</Nav.Link>
             </Nav>
@@ -47,4 +46,4 @@ class BrowseNavbar extends React.Component {
   }
 }
 
-export default BrowseNavbar;
+export default ClientNavbar;

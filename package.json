@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/Piedmont-Hills-GOATs-Association/coronapersonaltrainer/issues"
   },
-  "homepage": "https://github.com/Piedmont-Hills-GOATs-Association/coronapersonaltrainer#readme",
-  "dependencies": {
-    "concurrently": "^5.2.0"
-  }
+  "homepage": "https://github.com/Piedmont-Hills-GOATs-Association/coronapersonaltrainer#readme"
 }

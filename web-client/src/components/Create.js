@@ -1,13 +1,12 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import ClientNavbar from './ClientNavbar';
 import 'video-react/dist/video-react.css';
 import { Player } from 'video-react';
-import holder from "../holder_card.svg";
 import firebase from './firebase';
 
 class Create extends React.Component {
@@ -27,7 +26,6 @@ class Create extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setShow = this.setShow.bind(this);
-    this.handleSave = this.handleSave.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
   }
 
@@ -77,7 +75,7 @@ class Create extends React.Component {
           .then(response => response.text())
           .then(
             (result) => {
-              if (result) this.setShow());
+              if (result) this.setShow();
             },
             (error) => {
               console.log(error);
@@ -97,7 +95,6 @@ class Create extends React.Component {
           fetch('http://localhost:3030/user?action=data', {
             method: 'GET',
             headers: {
-              'Content-Type': 'application/json',
               'Token': idToken
             }
           })

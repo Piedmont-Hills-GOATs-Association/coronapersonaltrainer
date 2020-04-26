@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ClientNavbar from './ClientNavbar';
-import holder from "../holder_card.svg";
 import firebase from './firebase';
 
 class Dashboard extends React.Component {
@@ -15,7 +14,9 @@ class Dashboard extends React.Component {
     this.state = {
       redirect: (<div></div>),
       fbuser: {},
-      mdbuser: {}
+      mdbuser: {
+        videos: []
+      }
     };
   }
 
@@ -59,10 +60,10 @@ class Dashboard extends React.Component {
         {this.state.redirect}
         <ClientNavbar username={this.state.mdbuser.username} />
         <Container>
+          <h1>Dashboard</h1><br/>
           <Row className="justify-content-md-center">
             <Col>
               <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={holder} />
                 <Card.Body>
                   <Card.Title>Get Started</Card.Title>
                   <Card.Text>
@@ -74,7 +75,6 @@ class Dashboard extends React.Component {
             </Col>
             <Col>
               <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={holder} />
                 <Card.Body>
                   <Card.Title>Browse for Exercises</Card.Title>
                   <Card.Text>
@@ -86,7 +86,6 @@ class Dashboard extends React.Component {
             </Col>
             <Col>
               <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={holder} />
                 <Card.Body>
                   <Card.Title>Add an Exercise</Card.Title>
                   <Card.Text>
@@ -96,6 +95,28 @@ class Dashboard extends React.Component {
                 </Card.Body>
               </Card>
             </Col>
+          </Row>
+          <br/>
+          <h3>Your Videos</h3>
+          <br/>
+          <Row className="justify-content-md-center">
+          {this.state.mdbuser.videos.map((video, i) => {
+            return (
+              <>
+                <Col key={`${i}.1`}>
+                  <Card key={`${i}.2`} style={{ width: '18rem' }}>
+                    <Card.Body key={`${i}.4`}>
+                      <Card.Title key={`${i}.5`}>{video.filename}</Card.Title>
+                      <Card.Text key={`${i}.6`}>
+                        {video.description}
+                      </Card.Text>
+                      <Button key={`${i}.7`} variant="primary" href={`/watch?v=${video.filename}`}>Watch</Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </>
+            )
+          })}
           </Row>
         </Container>
       </div>

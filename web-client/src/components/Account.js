@@ -1,13 +1,11 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Modal from 'react-bootstrap/Modal';
 import ClientNavbar from './ClientNavbar';
-import holder from "../holder_card.svg";
 import firebase from './firebase';
 
 class Dashboard extends React.Component {
@@ -89,7 +87,6 @@ class Dashboard extends React.Component {
           fetch('http://localhost:3030/user?action=data', {
             method: 'GET',
             headers: {
-              'Content-Type': 'application/json',
               'Token': idToken
             }
           })
