@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class homePage extends JComponent{
-    static int FrameWidth = 1000;
+    static int FrameWidth = 1200;
     static int FrameHeight = 800;
     int loginSide1 = 200;
     int loginSide2 = 60;
