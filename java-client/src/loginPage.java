@@ -18,6 +18,7 @@ public class loginPage extends JFrame{
     JTextField jt1 = new JTextField("", 30);
     JPasswordField jt2 = new JPasswordField("", 30);
     JButton jb = new JButton("Enter");
+    JButton register = new JButton("Don't have an account?");
 
     public loginPage(){
         setTitle("loginPage");
@@ -34,6 +35,7 @@ public class loginPage extends JFrame{
         jp.add(jt2);
         jp.add(Box.createRigidArea(new Dimension(5000, 0)));
         jp.add(jb);
+        jp.add(register);
 
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -42,6 +44,12 @@ public class loginPage extends JFrame{
                 String input2 = new String(jt2.getPassword());
                 pass.setText(input2);
                 System.out.println("beep boop i have been pressed");
+            }
+        });
+
+        register.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                registrationPage page = new registrationPage();
             }
         });
 
