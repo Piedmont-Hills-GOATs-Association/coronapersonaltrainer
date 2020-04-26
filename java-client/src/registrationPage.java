@@ -83,7 +83,4 @@ public class registrationPage extends JFrame{
 
         add(jp);
     }
-    public static void main(String []args){
-        registrationPage page = new registrationPage();
-    }
 }

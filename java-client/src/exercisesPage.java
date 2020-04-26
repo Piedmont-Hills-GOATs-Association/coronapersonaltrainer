@@ -21,6 +21,7 @@ public class exercisesPage extends JComponent{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.drawString(height, 200, 200);
+    }
 
     public static void main(String[] args) throws InterruptedException {
         JFrame frame = new JFrame();
@@ -28,7 +29,6 @@ public class exercisesPage extends JComponent{
         frame.setTitle("homePage");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         exercisesPage page = new exercisesPage();
-        height = returnHeight();
 
         frame.add(page);
         frame.setVisible(true);

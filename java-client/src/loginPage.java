@@ -43,6 +43,13 @@ public class loginPage extends JFrame{
                 user.setText(input1);
                 String input2 = new String(jt2.getPassword());
                 pass.setText(input2);
+                menuPage page = new menuPage();
+            }
+        });
+
+        register.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                registrationPage page = new registrationPage();
             }
         });
 
