@@ -25,10 +25,12 @@ public class homePage extends JComponent{
         Rectangle rect = new Rectangle(x, y, loginSide1, loginSide2);
         g2.draw(rect);
         g2.fill(rect);
+
         g2.setPaint(Color.black);
         Font myFont1 = new Font("Dialog", Font.PLAIN, 40);
         g2.setFont(myFont1);
         g2.drawString("Login", x + loginSide1 / 4, y + loginSide2 * 3 / 4);
+
         Font myFont2 = new Font("Dialog", Font.PLAIN, 60);
         g2.setFont(myFont2);
         g2.drawString("Welcome To Your", FrameWidth / 4, FrameHeight / 4);

@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.awt.*;
  
 public class menuPage extends JFrame{
+    String input1;
+    String input2;
     static int FrameWidth = 1000;
     static int FrameHeight = 800;
     JPanel jp = new JPanel();
@@ -36,14 +38,26 @@ public class menuPage extends JFrame{
 
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                String input1 = jt1.getText();
+                input1 = jt1.getText();
                 height.setText(input1);
-                String input2 = jt2.getText();
+                input2 = jt2.getText();
                 weight.setText(input2);
-                System.out.println("beep boop i have been pressed");
+                exercisesPage page = new exercisesPage();
             }
         });
 
         add(jp);
+    }
+
+    public String returnHeight(){
+        return input1;
+    }
+
+    public String returnWeight(){
+        return input2;
+    }
+
+    public static void main(String []args){
+        menuPage page = new menuPage();
     }
 }

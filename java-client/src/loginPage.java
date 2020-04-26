@@ -54,12 +54,9 @@ public class loginPage extends JFrame{
             }
         });
 
-        register.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                registrationPage page = new registrationPage();
-            }
-        });
-
         add(jp);
+    }
+    public static void main(String []args){
+        loginPage page = new loginPage();
     }
 }
