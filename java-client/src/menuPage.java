@@ -11,8 +11,8 @@ public class menuPage extends JFrame{
     static int FrameWidth = 1000;
     static int FrameHeight = 800;
     JPanel jp = new JPanel();
-    JLabel height = new JLabel();
-    JLabel weight = new JLabel();
+    String height;
+    String weight;
     
     JLabel label1 = new JLabel("Height in Inches:");
     JLabel label2 = new JLabel("Weight in Pounds:");
@@ -39,25 +39,13 @@ public class menuPage extends JFrame{
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 input1 = jt1.getText();
-                height.setText(input1);
+                height = input1;
                 input2 = jt2.getText();
-                weight.setText(input2);
-                exercisesPage page = new exercisesPage();
+                weight = input2;
+                exercisesPage page = new exercisesPage(height, weight);
             }
         });
 
         add(jp);
-    }
-
-    public String returnHeight(){
-        return input1;
-    }
-
-    public String returnWeight(){
-        return input2;
-    }
-
-    public static void main(String []args){
-        menuPage page = new menuPage();
     }
 }

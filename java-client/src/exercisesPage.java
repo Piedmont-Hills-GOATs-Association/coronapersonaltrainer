@@ -1,10 +1,11 @@
-
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.*;
+import java.awt.*;
 
-public class exercisesPage extends JComponent{
+public class exercisesPage extends JFrame{
     static int FrameWidth = 1000;
     static int FrameHeight = 800;
     int loginSide1 = 200;
@@ -12,26 +13,24 @@ public class exercisesPage extends JComponent{
     int x = FrameWidth / 2 - loginSide1 / 2;
     int y = FrameHeight * 3 / 4;
 
-    String height;
-    String weight;
-    int h;
-    int w;
+    JPanel jp = new JPanel();
+    JLabel label1 = new JLabel("Your Height:");
+    JLabel label2 = new JLabel("Your Weight:");
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.drawString(height, 200, 200);
+    public exercisesPage(String height, String weight){
+        setTitle("loginPage");
+        setVisible(true);
+        setSize(FrameWidth,FrameHeight);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        JLabel h = new JLabel(height);
+        JLabel w = new JLabel(weight);
+
+        jp.add(label1);
+        jp.add(h);
+        jp.add(label2);
+        jp.add(w);
+
+        add(jp);
     }
-
-    public static void main(String[] args) throws InterruptedException {
-        JFrame frame = new JFrame();
-        frame.setSize(FrameWidth, FrameHeight);
-        frame.setTitle("homePage");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        exercisesPage page = new exercisesPage();
-
-        frame.add(page);
-        frame.setVisible(true);
-    }
-
 }

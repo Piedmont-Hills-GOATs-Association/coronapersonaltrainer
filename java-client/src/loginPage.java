@@ -55,7 +55,4 @@ public class loginPage extends JFrame{
 
         add(jp);
     }
-    public static void main(String []args){
-        loginPage page = new loginPage();
-    }
 }
