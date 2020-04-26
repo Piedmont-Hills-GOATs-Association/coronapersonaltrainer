@@ -46,8 +46,4 @@ public class menuPage extends JFrame{
 
         add(jp);
     }
-
-    public static void main(String[]args){
-        menuPage page = new menuPage();
-    }
 }

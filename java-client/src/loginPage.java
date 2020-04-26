@@ -43,7 +43,7 @@ public class loginPage extends JFrame{
                 user.setText(input1);
                 String input2 = new String(jt2.getPassword());
                 pass.setText(input2);
-                System.out.println("beep boop i have been pressed");
+                menuPage page = new menuPage();
             }
         });
 
@@ -54,9 +54,5 @@ public class loginPage extends JFrame{
         });
 
         add(jp);
-    }
-
-    public static void main(String[]args){
-        loginPage page = new loginPage();
     }
 }
