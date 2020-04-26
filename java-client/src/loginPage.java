@@ -39,7 +39,7 @@ public class loginPage extends JFrame{
             public void actionPerformed(ActionEvent e){
                 String input1 = jt1.getText();
                 user.setText(input1);
-                String input2 = jt2.getText();
+                String input2 = jt2.getPassword();
                 pass.setText(input2);
                 System.out.println("beep boop i have been pressed");
             }
