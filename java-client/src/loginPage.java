@@ -43,7 +43,6 @@ public class loginPage extends JFrame{
                 user.setText(input1);
                 String input2 = new String(jt2.getPassword());
                 pass.setText(input2);
-                menuPage page = new menuPage();
             }
         });
 
