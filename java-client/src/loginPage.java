@@ -44,6 +44,13 @@ public class loginPage extends JFrame{
                 String input2 = new String(jt2.getPassword());
                 pass.setText(input2);
                 menuPage page = new menuPage();
+                //System.out.println("beep boop i have been pressed");
+            }
+        });
+
+        register.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                registrationPage page = new registrationPage();
             }
         });
 

@@ -73,6 +73,7 @@ public class registrationPage extends JFrame{
                     String input5 = new String(jt5.getPassword());
                     pass.setText(input5);
                     System.out.println("Yay coolios");
+                    menuPage page = new menuPage();
                 }
                 else {
                     System.out.println("You suck at typing the same thing twice");
@@ -81,5 +82,9 @@ public class registrationPage extends JFrame{
         });
 
         add(jp);
+    }
+
+    public static void main(String[]args){
+        registrationPage page = new registrationPage();
     }
 }
