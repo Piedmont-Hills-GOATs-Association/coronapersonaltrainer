@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import BrowseNavbar from './BrowseNavbar';
 import firebase from './firebase';
 
-class Home extends React.Component {
+class Downloads extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,10 +25,10 @@ class Home extends React.Component {
       <div>
         <BrowseNavbar fbuser={this.state.fbuser}/>
         <Jumbotron>
-          <h1>Welcome!</h1>
-          <p>Welcome to the Corona Personal Trainer, a program that can help keep you fit while you stay indoors during the COVID-19 shelter-in-place orders.</p>
+          <h1>Downloads</h1>
           <p>
-            <Button variant="primary" href="about">Learn more</Button>
+            <Button variant="success" href="#">Java Client</Button>{' '}
+            <Button variant="warning" href="#">iOS App</Button>
           </p>
         </Jumbotron>
       </div>
@@ -36,4 +36,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default Downloads;

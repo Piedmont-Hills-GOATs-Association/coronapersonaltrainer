@@ -4,21 +4,21 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import BrowseNavbar from './BrowseNavbar';
 import firebase from './firebase';
-import holder from "../holder.svg";
+import holder from "../holder_profile.svg";
 import './About.css';
 
 class About extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      fbuser: null
     };
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
+    firebase.auth().onAuthStateChanged((fbuser) => {
+      if (fbuser) {
+        this.setState({ fbuser });
       }
     });
   }
@@ -26,7 +26,7 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <BrowseNavbar user={this.state.user}/>
+        <BrowseNavbar user={this.state.fbuser}/>
         <div className="container">
           <h1>Meet the people behind the program:</h1>
           <Row>

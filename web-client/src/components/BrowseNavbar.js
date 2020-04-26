@@ -26,17 +26,18 @@ class BrowseNavbar extends React.Component {
     return (
       <div>
         <Navbar bg="dark" variant="dark" expand="lg">
-          <Navbar.Brand href="/">Corona PT Web Client</Navbar.Brand>
+          <Navbar.Brand href="/">Corona Personal Trainer</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/about">About</Nav.Link>
+              <Nav.Link href="/downloads">Downloads</Nav.Link>
             </Nav>
             {
-              this.props.user ? (
+              this.props.fbuser ? (
                 <div>
-                  <NavDropdown title={this.props.user.email} id="basic-nav-dropdown">
+                  <NavDropdown title={this.props.fbuser.email} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={this.logoff}>Log Off</NavDropdown.Item>
@@ -46,6 +47,7 @@ class BrowseNavbar extends React.Component {
             }
           </Navbar.Collapse>
         </Navbar>
+        <br />
       </div>
     )
   }
