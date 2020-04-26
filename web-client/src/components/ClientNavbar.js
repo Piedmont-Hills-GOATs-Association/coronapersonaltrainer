@@ -44,5 +44,4 @@ class BrowseNavbar extends React.Component {
   }
 }
 
-
 export default BrowseNavbar;
