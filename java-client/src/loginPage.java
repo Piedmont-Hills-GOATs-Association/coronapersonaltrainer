@@ -4,14 +4,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.*;
 import java.awt.*;
- 
+
 public class loginPage extends JFrame{
     static int FrameWidth = 1000;
     static int FrameHeight = 800;
     JPanel jp = new JPanel();
     JLabel user = new JLabel();
     JLabel pass = new JLabel();
-    
+
     JLabel label1 = new JLabel("Username");
     JLabel label2 = new JLabel("Password");
 
