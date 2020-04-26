@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Token");
+  res.header("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS");
   next();
 });
 
@@ -48,6 +49,8 @@ const checkToken = async (req, res) => {
 const updateUser = async (email, req) => {
   const user = {};
   if (req.body.username) user.username = req.body.username;
+  if (req.body.height) user.height = req.body.height;
+  if (req.body.weight) user.weight = req.body.weight;
   try {
     await Users.updateOne({
       email
