@@ -16,7 +16,7 @@ public class loginPage extends JFrame{
     JLabel label2 = new JLabel("Password");
 
     JTextField jt1 = new JTextField("", 30);
-    JTextField jt2 = new JTextField("", 30);
+    JPasswordField jt2 = new JPasswordField("", 30);
     JButton jb = new JButton("Enter");
 
     public loginPage(){
@@ -30,6 +30,7 @@ public class loginPage extends JFrame{
         jp.add(jt1);
         jp.add(Box.createRigidArea(new Dimension(5000, 0)));
         jp.add(label2);
+        jt2.setEchoChar('*');
         jp.add(jt2);
         jp.add(Box.createRigidArea(new Dimension(5000, 0)));
         jp.add(jb);
