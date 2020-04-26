@@ -30,10 +30,6 @@ public class ManavClient {
             boolean obese = true;
             System.out.println("You are in the obese range. Let's try to be more fit!");
         }
-        
-        
-
-
 
     }
 }
