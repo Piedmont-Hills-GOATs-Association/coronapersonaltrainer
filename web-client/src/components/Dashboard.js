@@ -45,6 +45,10 @@ class Dashboard extends React.Component {
         }).catch(error => {
           console.log(error);
         });
+      } else {
+        this.setState({
+          redirect: (<Redirect to="/" />)
+        });
       }
     });
   }
@@ -53,7 +57,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         {this.state.redirect}
-        <ClientNavbar />
+        <ClientNavbar username={this.state.mdbuser.username} />
         <Container>
           <Row className="justify-content-md-center">
             <Col>
@@ -88,7 +92,7 @@ class Dashboard extends React.Component {
                   <Card.Text>
                     Upload an exercise video to share with people your workout and routine.
                   </Card.Text>
-                  <Button variant="primary">Upload video</Button>
+                  <Button variant="primary" href="/create">Upload video</Button>
                 </Card.Body>
               </Card>
             </Col>

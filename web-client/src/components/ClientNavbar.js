@@ -32,9 +32,12 @@ class BrowseNavbar extends React.Component {
             <Nav className="mr-auto">
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
               <Nav.Link href="/#">Browse</Nav.Link>
-              <Nav.Link href="/#">Create</Nav.Link>
+              <Nav.Link href="/create">Create</Nav.Link>
               <Nav.Link href="/account">Account</Nav.Link>
             </Nav>
+            <Navbar.Brand disabled>
+              Welcome, {this.props.username}!
+            </Navbar.Brand>
             <Button variant="danger" onClick={this.logoff}>Log Off</Button>
           </Navbar.Collapse>
         </Navbar>
