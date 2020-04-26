@@ -31,10 +31,14 @@ class BrowseNavbar extends React.Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+              <Nav.Link href="/#">Browse</Nav.Link>
+              <Nav.Link href="/#">Create</Nav.Link>
+              <Nav.Link href="/account">Account</Nav.Link>
             </Nav>
             <Button variant="danger" onClick={this.logoff}>Log Off</Button>
           </Navbar.Collapse>
         </Navbar>
+        <br />
       </div>
     )
   }

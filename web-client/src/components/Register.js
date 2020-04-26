@@ -69,7 +69,7 @@ class Register extends React.Component {
                 }
               }
             );
-        }).catch(function(error) {
+        }).catch(error => {
           console.log(error)
           this.setState({
             alert: (<Alert variant="danger">Something went wrong. Please try again.</Alert>)

@@ -45,7 +45,7 @@ class Dashboard extends React.Component {
                   <Card.Text>
                     Input some information about your physical well-being to help find a good exercise for you.
                   </Card.Text>
-                  <Button variant="primary">Access account info</Button>
+                  <Button variant="primary" href="/account">Access account info</Button>
                 </Card.Body>
               </Card>
             </Col>
