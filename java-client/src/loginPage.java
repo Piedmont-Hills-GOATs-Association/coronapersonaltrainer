@@ -1,55 +1,49 @@
-import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.*;
-import java.awt.BorderLayout;
+import java.awt.*;
  
 public class loginPage extends JFrame{
+    static int FrameWidth = 1000;
+    static int FrameHeight = 800;
     JPanel jp = new JPanel();
-    JLabel jl = new JLabel();
-    //JLabel myLabel = new JLabel("This is my message");
+    JLabel user = new JLabel();
+    JLabel pass = new JLabel();
+    
+    JLabel label1 = new JLabel("Username");
+    JLabel label2 = new JLabel("Password");
 
-    JTextField jt1 = new JTextField("default", 30);
-    JTextField jt2 = new JTextField("hi", 30);
+    JTextField jt1 = new JTextField("", 30);
+    JTextField jt2 = new JTextField("", 30);
     JButton jb = new JButton("Enter");
 
     public loginPage(){
         setTitle("loginPage");
         setVisible(true);
-        setSize(1000,1000);
+        setSize(FrameWidth,FrameHeight);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        jp.add(Box.createRigidArea(new Dimension(0, 300)));
+        jp.add(label1);
         jp.add(jt1);
-        jt1.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                String input = jt1.getText();
-                jl.setText(input);
-            }
-        });
-
+        jp.add(Box.createRigidArea(new Dimension(5000, 0)));
+        jp.add(label2);
         jp.add(jt2);
-        jt2.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                String input = jt2.getText();
-                jl.setText(input);
-            }
-        });
-
+        jp.add(Box.createRigidArea(new Dimension(5000, 0)));
         jp.add(jb);
+
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 String input1 = jt1.getText();
-                jl.setText(input1);
+                user.setText(input1);
                 String input2 = jt2.getText();
-                jl.setText(input2);
+                pass.setText(input2);
+                System.out.println("beep boop i have been pressed");
             }
         });
 
-        //jp.add(myLabel,BorderLayout.WEST);
-        //jp.add(jt1,BorderLayout.CENTER);
-        jp.add(jl);
         add(jp);
     }
 
