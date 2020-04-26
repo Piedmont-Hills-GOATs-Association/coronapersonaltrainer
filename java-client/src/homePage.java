@@ -27,22 +27,19 @@ public class homePage extends JComponent{
         g2.fill(rect);
         
         g2.setPaint(Color.black);
-        Font myFont1 = new Font("Roboto", Font.PLAIN, 40);
+        Font myFont1 = new Font("Dialog", Font.PLAIN, 40);
         g2.setFont(myFont1);
         g2.drawString("Login", x + loginSide1 / 4, y + loginSide2 * 3 / 4);
         
-        Font myFont2 = new Font("Roboto", Font.PLAIN, 60);
+        Font myFont2 = new Font("Dialog", Font.PLAIN, 60);
         g2.setFont(myFont2);
-        g2.drawString("Welcome To", FrameWidth / 4 + 50, FrameHeight / 4);
-
-        Font myFont3 = new Font("Roboto", Font.PLAIN, 60);
-        g2.setFont(myFont3);
-        g2.drawString("Corona Personal Trainer", FrameWidth / 4 - 100, FrameHeight / 2);
+        g2.drawString("Welcome To Your", FrameWidth / 4, FrameHeight / 4);
+        g2.drawString("COVID-19 Personal Trainer", FrameWidth / 4 - 100, FrameHeight / 2);
     }
 
     public void response(int g, int h){
         if(g > x && g < x + loginSide1 && h > y && h < y + loginSide2){
-            System.out.println("hi");
+            System.out.println("LOGIN!!");
         }
     }
 
@@ -78,6 +75,3 @@ public class homePage extends JComponent{
     }
 
 }
-
-    
-    
