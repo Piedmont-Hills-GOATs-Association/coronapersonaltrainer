@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.*;
 import java.awt.*;
- 
+
 public class registrationPage extends JFrame{
     static int FrameWidth = 1000;
     static int FrameHeight = 800;
@@ -14,7 +14,7 @@ public class registrationPage extends JFrame{
     JLabel email = new JLabel();
     JLabel user = new JLabel();
     JLabel pass = new JLabel();
-    
+
     JLabel label1 = new JLabel("First Name");
     JLabel label2 = new JLabel("Last Name");
     JLabel label3 = new JLabel("Email");
